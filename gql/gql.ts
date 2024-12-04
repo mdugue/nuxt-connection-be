@@ -14,7 +14,8 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 const documents = {
-    "\n      query Users($first: Int, $after: String) {\n        users(first: $first, after: $after) {\n          edges {\n            cursor\n            node {\n              id\n              name\n            }\n          }\n          pageInfo {\n            endCursor\n            hasNextPage\n          }\n        }\n      }\n    ": types.UsersDocument,
+    "\n    query Journeys($first: Int, $after: String) {\n      entries: journeys(first: $first, after: $after) {\n        edges {\n          cursor\n          node {\n            id\n            name\n            from\n            to\n          }\n        }\n        pageInfo {\n          endCursor\n          hasNextPage\n        }\n      }\n    }\n  ": types.JourneysDocument,
+    "\n    query Users($first: Int, $after: String) {\n      entries: users(first: $first, after: $after) {\n        edges {\n          cursor\n          node {\n            id\n            name\n          }\n        }\n        pageInfo {\n          endCursor\n          hasNextPage\n        }\n      }\n    }\n  ": types.UsersDocument,
 };
 
 /**
@@ -34,7 +35,11 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n      query Users($first: Int, $after: String) {\n        users(first: $first, after: $after) {\n          edges {\n            cursor\n            node {\n              id\n              name\n            }\n          }\n          pageInfo {\n            endCursor\n            hasNextPage\n          }\n        }\n      }\n    "): (typeof documents)["\n      query Users($first: Int, $after: String) {\n        users(first: $first, after: $after) {\n          edges {\n            cursor\n            node {\n              id\n              name\n            }\n          }\n          pageInfo {\n            endCursor\n            hasNextPage\n          }\n        }\n      }\n    "];
+export function graphql(source: "\n    query Journeys($first: Int, $after: String) {\n      entries: journeys(first: $first, after: $after) {\n        edges {\n          cursor\n          node {\n            id\n            name\n            from\n            to\n          }\n        }\n        pageInfo {\n          endCursor\n          hasNextPage\n        }\n      }\n    }\n  "): (typeof documents)["\n    query Journeys($first: Int, $after: String) {\n      entries: journeys(first: $first, after: $after) {\n        edges {\n          cursor\n          node {\n            id\n            name\n            from\n            to\n          }\n        }\n        pageInfo {\n          endCursor\n          hasNextPage\n        }\n      }\n    }\n  "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query Users($first: Int, $after: String) {\n      entries: users(first: $first, after: $after) {\n        edges {\n          cursor\n          node {\n            id\n            name\n          }\n        }\n        pageInfo {\n          endCursor\n          hasNextPage\n        }\n      }\n    }\n  "): (typeof documents)["\n    query Users($first: Int, $after: String) {\n      entries: users(first: $first, after: $after) {\n        edges {\n          cursor\n          node {\n            id\n            name\n          }\n        }\n        pageInfo {\n          endCursor\n          hasNextPage\n        }\n      }\n    }\n  "];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

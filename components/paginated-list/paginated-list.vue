@@ -1,17 +1,27 @@
 <template>
-  <h1>Users</h1>
-  <ul>
-    <UserListPage
+  <ul v-bind="$attrs">
+    <PaginatedListPage
       v-for="(variables, index) in pageVariables"
       :key="variables.after"
       :first="10"
       :after="variables.after"
       :is-last-page="index === pageVariables.length - 1"
-      @onLoadMore="handleLoadMore"
+      :item-renderer="props.itemRenderer"
+      @on-load-more="handleLoadMore"
+      :page-query="props.pageQuery"
     />
   </ul>
 </template>
+
 <script lang="ts" setup>
+import type { TypedDocumentNode } from "@urql/vue";
+import PaginatedListPage from "~/components/paginated-list/paginated-list-page.vue";
+
+const props = defineProps<{
+  itemRenderer: Component;
+  pageQuery: TypedDocumentNode;
+}>();
+
 const pageVariables = ref<Array<{ first: number; after: string | undefined }>>([
   { first: 10, after: undefined },
 ]);
